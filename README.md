@@ -1,5 +1,7 @@
 # 🏥 Healthcare Appointment & Follow-up Manager
 
+🌐 **Live Deployed Application:** [https://healthcare-appointment-manager-fron-inky.vercel.app/](https://healthcare-appointment-manager-fron-inky.vercel.app/)
+
 A production-quality full-stack healthcare appointment, symptom analysis, consultation, and follow-up management system built with **Node.js, Express, TypeScript, React, Tailwind CSS, PostgreSQL, Prisma, BullMQ, and OpenAI**.
 
 ---
