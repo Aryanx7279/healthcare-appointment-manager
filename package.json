@@ -1,0 +1,20 @@
+{
+  "name": "healthcare-appointment-manager",
+  "version": "1.0.0",
+  "description": "Healthcare Appointment & Follow-up Manager - Full-stack monorepo",
+  "private": true,
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "migrate": "cd backend && npm run migrate",
+    "seed": "cd backend && npm run seed",
+    "test:backend": "cd backend && npm test"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
