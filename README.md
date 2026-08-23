@@ -182,6 +182,48 @@ Adding doctor leave updates all affected appointments to `RESCHEDULE_REQUIRED` a
 
 ---
 
+## 📊 Database Schema
+
+The relational schema is configured in [schema.prisma](file:///c:/Users/mysti/OneDrive/Desktop/Healthcare/healthcare-appointment-manager/backend/prisma/schema.prisma) and consists of the following key entities:
+* **`User`**: Core account data with email, password hash, role (`PATIENT`, `DOCTOR`, `ADMIN`), and activation status.
+* **`DoctorProfile`**: Link to `User`, containing specialization relation, working hours config, slot duration, and active status.
+* **`PatientProfile`**: Link to `User`, containing profile attributes like blood group, allergies, and address.
+* **`Specialization`**: List of medical specialties (e.g. Cardiology, Dermatology).
+* **`Appointment`**: Connects patient, doctor, and timeslot. Tracks booking status, symptoms, symptoms severity, and Google Calendar event links.
+* **`SlotHold`**: Manages temporary 5-minute locks on slots before booking is finalized.
+* **`PreVisitSummary`**: Stores AI-generated chief complaints, suggested questions, and urgency classification.
+* **`PostVisitSummary`**: Stores patient-friendly diagnostic summaries, prescription items, and follow-up action points.
+* **`DoctorLeave`**: Logs leave dates taken by doctors to track schedule availability.
+* **`EmailJob`**: Queue table for background notification jobs with retries and exponential backoff tracking.
+* **`MedicationReminder`**: Tracks scheduled daily medication notifications for patients.
+
+---
+
+## 🔌 API Endpoint Documentation
+
+### Authentication (`/api/auth`)
+* `POST /register` - Register a new patient or doctor account.
+* `POST /login` - Sign in to retrieve access & refresh JWT tokens.
+* `GET /profile` - Retrieve the current authenticated user's profile metadata.
+* `PUT /profile` - Update user and role-specific profile details (patient/doctor).
+
+### Doctors (`/api/doctors`)
+* `GET /` - Fetch all active doctors (filter by specialization, name, or availability).
+* `GET /:id/slots?date=YYYY-MM-DD` - Retrieve available, held, and booked slots for a doctor on a specific date.
+* `POST /me/leaves` - [DOCTOR] Register a leave day (automatically flags and reschedules conflicting appointments).
+
+### Appointments (`/api/appointments`)
+* `POST /hold` - [PATIENT] Create a temporary 5-minute hold on a timeslot.
+* `POST /` - [PATIENT] Book a slot (converts active hold into a confirmed appointment).
+* `GET /me` - Fetch upcoming/past appointments matching the authenticated user's role.
+* `POST /:id/cancel` - Cancel a confirmed appointment and release/delete calendar events.
+
+### Consultations & AI (`/api/appointments/:id/consultation`)
+* `POST /consultation` - [DOCTOR] Submit clinical notes, diagnosis, and prescription details (triggers post-visit AI summary generation).
+* `POST /api/ai/chat` - Interact with the CareFlow AI virtual assistant (handles symptom guidance and routing).
+
+---
+
 ## 📄 Documentation Links
 
 - 📐 [Architecture & Diagrams (`docs/ARCHITECTURE.md`)](docs/ARCHITECTURE.md)
