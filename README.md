@@ -185,6 +185,7 @@ Adding doctor leave updates all affected appointments to `RESCHEDULE_REQUIRED` a
 ## 📄 Documentation Links
 
 - 📐 [Architecture & Diagrams (`docs/ARCHITECTURE.md`)](docs/ARCHITECTURE.md)
+- 📝 [System Design Write-up (`docs/SYSTEM_DESIGN.md`)](docs/SYSTEM_DESIGN.md)
 - 🤖 [LLM Prompts & Schemas (`docs/LLM_PROMPTS.md`)](docs/LLM_PROMPTS.md)
 - 📅 [Google Calendar Integration Guide (`docs/GOOGLE_CALENDAR_SETUP.md`)](docs/GOOGLE_CALENDAR_SETUP.md)
 
