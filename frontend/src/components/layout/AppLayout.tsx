@@ -33,6 +33,7 @@ const adminNav: NavItem[] = [
   { label: 'Appointments',    href: '/admin/appointments',    icon: <Calendar className="w-4 h-4" /> },
   { label: 'Specializations', href: '/admin/specializations', icon: <Shield className="w-4 h-4" /> },
   { label: 'System',          href: '/admin/system',          icon: <Settings className="w-4 h-4" /> },
+  { label: 'Profile',         href: '/admin/profile',         icon: <UserCog className="w-4 h-4" /> },
 ];
 
 const ROLE_META = {
@@ -200,7 +201,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => navigate(
               role === 'PATIENT' ? '/patient/profile' :
-              role === 'DOCTOR'  ? '/doctor/profile'  : '/admin'
+              role === 'DOCTOR'  ? '/doctor/profile'  : '/admin/profile'
             )}
             className="rounded-full transition-all duration-150 focus:outline-none"
             title="View Profile"

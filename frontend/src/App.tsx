@@ -30,6 +30,8 @@ import { DoctorDashboard } from './pages/doctor/DoctorDashboard';
 import { DoctorAppointmentsPage } from './pages/doctor/DoctorAppointmentsPage';
 import { DoctorAppointmentDetailPage } from './pages/doctor/DoctorAppointmentDetailPage';
 import { DoctorLeaveManagementPage } from './pages/doctor/DoctorLeaveManagementPage';
+import { DoctorSchedulePage } from './pages/doctor/DoctorSchedulePage';
+import { DoctorProfilePage } from './pages/doctor/DoctorProfilePage';
 
 // Admin pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -38,6 +40,7 @@ import { AdminPatientsPage } from './pages/admin/AdminPatientsPage';
 import { AdminAppointmentsPage } from './pages/admin/AdminAppointmentsPage';
 import { AdminSpecializationsPage } from './pages/admin/AdminSpecializationsPage';
 import { AdminSystemPage } from './pages/admin/AdminSystemPage';
+import { AdminProfilePage } from './pages/admin/AdminProfilePage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -233,7 +236,7 @@ function AppRoutes() {
           <RequireAuth>
             <RequireRole role="DOCTOR">
               <AppLayout>
-                <DoctorLeaveManagementPage />
+                <DoctorSchedulePage />
               </AppLayout>
             </RequireRole>
           </RequireAuth>
@@ -246,6 +249,18 @@ function AppRoutes() {
             <RequireRole role="DOCTOR">
               <AppLayout>
                 <DoctorLeaveManagementPage />
+              </AppLayout>
+            </RequireRole>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/doctor/profile"
+        element={
+          <RequireAuth>
+            <RequireRole role="DOCTOR">
+              <AppLayout>
+                <DoctorProfilePage />
               </AppLayout>
             </RequireRole>
           </RequireAuth>
@@ -320,6 +335,18 @@ function AppRoutes() {
             <RequireRole role="ADMIN">
               <AppLayout>
                 <AdminSystemPage />
+              </AppLayout>
+            </RequireRole>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/admin/profile"
+        element={
+          <RequireAuth>
+            <RequireRole role="ADMIN">
+              <AppLayout>
+                <AdminProfilePage />
               </AppLayout>
             </RequireRole>
           </RequireAuth>

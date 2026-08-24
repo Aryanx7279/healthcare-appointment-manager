@@ -17,13 +17,15 @@ export function LoginPage() {
   const { login }  = useAuth();
   const navigate   = useNavigate();
   const [error, setError]               = useState('');
+  const [loading, setLoading]           = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
 
   const onSubmit = async (data: LoginForm) => {
     try {
       setError('');
+      setLoading(true);
       const u = await login(data.email.trim(), data.password);
       toast.success(`Welcome back, ${u.firstName}!`);
       if (u.role === 'ADMIN') navigate('/admin');
@@ -31,6 +33,8 @@ export function LoginPage() {
       else navigate('/patient');
     } catch (err: any) {
       setError(err.response?.data?.error?.message || err.message || 'Invalid email or password');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -150,9 +154,9 @@ export function LoginPage() {
             </div>
 
             {/* Submit */}
-            <button type="submit" disabled={isSubmitting}
+            <button type="submit" disabled={loading}
               className="btn btn-primary btn-lg w-full mt-2 group">
-              {isSubmitting ? (
+              {loading ? (
                 <>
                   <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
